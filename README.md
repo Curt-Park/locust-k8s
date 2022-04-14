@@ -17,6 +17,11 @@ make cluster
 skaffold dev
 ```
 
+#### 3. Run FastAPI Server
+```
+make api
+```
+
 ## Delete the cluster
 ```
 make finalize
