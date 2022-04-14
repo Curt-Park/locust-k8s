@@ -22,6 +22,8 @@ skaffold dev
 make api
 ```
 
+See http://0.0.0.0:8000/redoc
+
 ## Delete the cluster
 ```
 make finalize
