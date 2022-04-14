@@ -17,9 +17,8 @@ spec:
    spec:
      volumes:
        - name: locust-volume
-         hostPath:
-           path: locust-tasks
-           type: Directory
+         configMap:
+           name: locust-configmap
      containers:
        - name: locust-master
          image: locustio/locust:2.8.6

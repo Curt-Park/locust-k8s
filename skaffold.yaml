@@ -2,14 +2,10 @@ apiVersion: skaffold/v2beta28
 kind: Config
 metadata:
   name: loadtest
-build:
-  artifacts:
-  - image: locust-tasks
-    docker:
-      dockerfile: Dockerfile
 deploy:
   kubectl:
     manifests:
+    - k8s/configmap.yaml
     - k8s/locust-master.yaml
     - k8s/locust-worker.yaml
 portForward:
