@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: locust-worker
+ labels:
+   name: locust-worker
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+     app: locust-worker
+ template:
+   metadata:
+     labels:
+       app: locust-worker
+   spec:
+     volumes:
+       - name: locust-volume
+         hostPath:
+           path: locust-tasks
+           type: Directory
+     containers:
+       - name: locust-worker
+         image: locustio/locust:2.8.6
+         imagePullPolicy: IfNotPresent
+         resources:
+            limits:
+              cpu: "1.0"
+            requests:
+              cpu: "0.5"
+         env:
+           - name: LOCUST_MODE_WORKER
+             value: "true"
+           - name: LOCUST_MASTER_NODE_HOST
+             value: locust-master
+           - name: LOCUST_LOCUSTFILE
+             value: /locust-tasks/locustfile.py
+         volumeMounts:
+           - name: locust-volume
+             mountPath: /locust-tasks
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: locust-worker-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: locust-worker
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50

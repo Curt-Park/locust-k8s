@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: locust-master
+ labels:
+   name: locust-master
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+     app: locust-master
+ template:
+   metadata:
+     labels:
+       app: locust-master
+       role: master
+   spec:
+     volumes:
+       - name: locust-volume
+         hostPath:
+           path: locust-tasks
+           type: Directory
+     containers:
+       - name: locust-master
+         image: locustio/locust:2.8.6
+         imagePullPolicy: IfNotPresent
+         resources:
+            limits:
+              cpu: "1.0"
+            requests:
+              cpu: "0.5"
+         env:
+           - name: LOCUST_MODE_MASTER
+             value: "true"
+           - name: LOCUST_EXPECT_WORKERS
+             value: "1"
+           - name: LOCUST_LOCUSTFILE
+             value: /locust-tasks/locustfile.py
+         volumeMounts:
+           - name: locust-volume
+             mountPath: /locust-tasks
+         ports:
+           - name: loc-master-web
+             containerPort: 8089
+             protocol: TCP
+           - name: loc-master-p1
+             containerPort: 5557
+             protocol: TCP
+           - name: loc-master-p2
+             containerPort: 5558
+             protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: locust-master
+ labels:
+   app: locust-master
+spec:
+ type: LoadBalancer
+ selector:
+   app: locust-master
+   role: master
+ ports:
+   - port: 8089
+     targetPort: loc-master-web
+     protocol: TCP
+     name: loc-master-web
+   - port: 5557
+     targetPort: loc-master-p1
+     protocol: TCP
+     name: loc-master-p1
+   - port: 5558
+     targetPort: loc-master-p2
+     protocol: TCP
+     name: loc-master-p2
