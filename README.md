@@ -27,9 +27,24 @@ curl localhost:8000/random-number  # check the server is running
 #### 4. Load Tests
 Go to http://localhost:8089, and set the host address and the number of v-users.
 
-<img width="1278" alt="" src="https://user-images.githubusercontent.com/14961526/163497514-fe66daf1-0abc-4d80-bf3e-3a01b6af7bf3.png">
+<img width="1275" alt="" src="https://user-images.githubusercontent.com/14961526/163500998-2ba3f020-9796-4338-bb1d-bdee02f54798.png">
 
 k8s will auto-scale pods to make concurrent requests if needed.
+
+```bash
+$ kubectl get hpa --watch       
+
+NAME                REFERENCE                  TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+locust-worker-hpa   Deployment/locust-worker   <unknown>/50%   1         10        1          21s
+locust-worker-hpa   Deployment/locust-worker   73%/50%         1         10        1          45s
+locust-worker-hpa   Deployment/locust-worker   73%/50%         1         10        2          60s
+locust-worker-hpa   Deployment/locust-worker   91%/50%         1         10        2          75s
+locust-worker-hpa   Deployment/locust-worker   81%/50%         1         10        2          90s
+locust-worker-hpa   Deployment/locust-worker   78%/50%         1         10        2          105s
+locust-worker-hpa   Deployment/locust-worker   85%/50%         1         10        4          2m
+locust-worker-hpa   Deployment/locust-worker   63%/50%         1         10        4          2m15s
+locust-worker-hpa   Deployment/locust-worker   38%/50%         1         10        4          2m30s
+```
 
 ## Delete the cluster
 ```
