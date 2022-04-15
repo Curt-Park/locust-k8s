@@ -3,8 +3,9 @@ a Locust on k8s example for scalable load tests.
 
 ## Preparation
 0. [Install Docker](https://docs.docker.com/engine/install/).
-1. [Install Minikube](https://minikube.sigs.k8s.io/docs/start/) to generate a local cluster.
-2. [Install the latest Skaffold](https://github.com/GoogleContainerTools/skaffold/releases) for easy and repeatable Kubernetes development.
+1. Install [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl).
+2. [Install Minikube](https://minikube.sigs.k8s.io/docs/start/) to generate a local cluster.
+3. [Install the latest Skaffold](https://github.com/GoogleContainerTools/skaffold/releases) for easy and repeatable Kubernetes development.
 
 ## How to play
 
