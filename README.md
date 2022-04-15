@@ -21,7 +21,7 @@ skaffold dev  # `ctrl + c` to terminate
 #### 3. Run FastAPI Server
 ```
 make api
-curl localhost:8000/random-number  # check the server is running
+curl localhost/random-number  # check the server is running
 ```
 
 #### 4. Load Tests
