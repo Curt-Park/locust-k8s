@@ -1,5 +1,5 @@
 # locust-k8s
-Locust on k8s example for scalable load tests
+a Locust on k8s example for scalable load tests.
 
 ## Preparation
 0. [Install Docker](https://docs.docker.com/engine/install/).
@@ -25,7 +25,11 @@ curl localhost:8000/random-number  # check the server is running
 ```
 
 #### 4. Load Tests
-Go to http://localhost:8089
+Go to http://localhost:8089, and set the host address and the number of v-users.
+
+<img width="1278" alt="" src="https://user-images.githubusercontent.com/14961526/163497514-fe66daf1-0abc-4d80-bf3e-3a01b6af7bf3.png">
+
+k8s will auto-scale pods to make concurrent requests if needed.
 
 ## Delete the cluster
 ```
