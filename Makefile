@@ -11,4 +11,4 @@ finalize:
 
 api:
 	docker build -t test-server:latest server/.
-	docker run -v $(PWD)/server:/app -p 8000:8000 test-server:latest
+	docker run -v $(PWD)/server:/app -p 80:80 test-server:latest
