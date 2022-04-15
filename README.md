@@ -15,7 +15,7 @@ make cluster
 
 #### 2. Run locust master and workers
 ```
-skaffold dev
+skaffold dev  # `ctrl + c` to terminate
 ```
 
 #### 3. Run FastAPI Server
