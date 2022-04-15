@@ -5,7 +5,7 @@ metadata:
 data:
   locustfile.py: |
     from locust import FastHttpUser, between, task
-    
+
     class QuickstartUser(FastHttpUser):
 
         wait_time = between(1, 3)

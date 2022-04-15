@@ -5,7 +5,6 @@ cluster:
 	minikube start --profile $(PROFILE_NAME) --extra-config=kubelet.housekeeping-interval=10s --memory=max --cpus=max
 	minikube addons enable metrics-server --profile $(PROFILE_NAME)
 	minikube addons list --profile $(PROFILE_NAME)
-	eval $(minikube docker-env --profile=$(PROFILE_NAME))
 
 finalize:
 	minikube delete --profile $(PROFILE_NAME)
